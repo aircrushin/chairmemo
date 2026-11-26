@@ -11,3 +11,5 @@ test-results
 recordings
 .vite
 tsconfig.tsbuildinfo
+.dev.vars
+worker/.dev.vars

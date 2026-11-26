@@ -1,0 +1,4 @@
+name = "chairmemo-brief"
+main = "index.js"
+compatibility_date = "2026-11-01"
+# Secret binding LLM_API_KEY is set with the Cloudflare API, never committed.

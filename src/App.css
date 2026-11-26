@@ -139,6 +139,8 @@
 }
 .empty h3 { font-family: var(--serif); font-size: 28px; color: var(--ink); margin: 12px 0 8px; font-weight: 500; }
 .empty p { max-width: 42ch; line-height: 1.5; }
+.empty .btn { margin-top: 16px; }
+.empty .note { max-width: 48ch; }
 
 .chop, .chop-ghost {
   width: 88px; height: 88px; border-radius: 50%;

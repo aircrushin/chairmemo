@@ -8,7 +8,9 @@ export const copy = {
     subhead:
       "Paste a WhatsApp, WeChat or email thread. In one pass, Chairmemo chairs it: decisions, open questions, owners, and a suggested reply — in English, 中文 and 粵語.",
     chairThis: "Chair this thread",
+    chairLive: "Chair with live model",
     chairing: "Reading the thread…",
+    chairingLive: "Asking the live model…",
     paste: "Paste a thread",
     pasteTitle: "Paste a WhatsApp, WeChat or email thread",
     pasteHint:
@@ -40,9 +42,12 @@ export const copy = {
     channelEmail: "Email",
     due: "Due",
     needs: "Needs",
-    offlineTitle: "Offline outline",
-    offlineNote:
-      "This hosted demo chairs the official samples with a full brief. For a pasted thread without a live model, Chairmemo still extracts speakers, questions and owner-like lines so you can see the shape of a brief. Use a sample for the judged walkthrough.",
+    liveBadge: "Live model",
+    demoBadge: "Official sample",
+    liveErrorTitle: "The live model could not chair this thread.",
+    liveErrorHint:
+      "Official samples still open a curated brief instantly. A pasted thread needs the live model; if this fails, wait a moment and try again. Chairmemo will not invent a stand-in brief.",
+    retryLive: "Try the live model again",
     footer:
       "Chairmemo · HK AI Week 2026 · A bilingual chief of staff for messy group chats.",
     langEn: "EN",
@@ -60,7 +65,9 @@ export const copy = {
     subhead:
       "貼上 WhatsApp、微信或電郵對話。Chairmemo 一次整理：已決議、未決問題、負責人，以及可直接送出的回覆——英文、中文、粵語。",
     chairThis: "整理這條對話",
+    chairLive: "用即時模型整理",
     chairing: "正在閱讀對話…",
+    chairingLive: "正在呼叫即時模型…",
     paste: "貼上對話",
     pasteTitle: "貼上 WhatsApp、微信或電郵對話",
     pasteHint:
@@ -92,9 +99,12 @@ export const copy = {
     channelEmail: "電郵",
     due: "截止",
     needs: "需要",
-    offlineTitle: "離線提綱",
-    offlineNote:
-      "此公開演示會為官方示例生成完整紀要。自行貼上的對話在沒有即時模型時，仍會抽出發言者、問句與負責人線索，方便查看紀要結構。評審演示請使用示例。",
+    liveBadge: "即時模型",
+    demoBadge: "官方示例",
+    liveErrorTitle: "即時模型未能整理這條對話。",
+    liveErrorHint:
+      "官方示例仍可立即開出精選紀要。自行貼上的對話需要即時模型；若失敗，請稍候再試。Chairmemo 不會用離線提綱冒充即時結果。",
+    retryLive: "再試一次即時模型",
     footer:
       "Chairmemo · 香港 AI Week 2026 · 為混亂群聊而設的雙語幕僚。",
     langEn: "EN",

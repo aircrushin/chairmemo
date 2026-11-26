@@ -26,7 +26,9 @@ export default function App() {
   );
   const [activeDemo, setActiveDemo] = useState<string | null>(demoId);
   const [brief, setBrief] = useState<Brief | null>(null);
-  const [source, setSource] = useState<"demo" | "outline" | "live" | null>(null);
+  const [source, setSource] = useState<"demo" | "live" | "error" | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [livePass, setLivePass] = useState(false);
   const [evidence, setEvidence] = useState<string[]>([]);
   const [focusId, setFocusId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -52,8 +54,10 @@ export default function App() {
     setMessages(demo.messages);
     setBrief(null);
     setSource(null);
+    setError(null);
     setEvidence([]);
     setFocusId(null);
+    setLivePass(false);
     const url = new URL(window.location.href);
     url.searchParams.set("demo", id);
     if (!run) url.searchParams.delete("run");
@@ -61,18 +65,26 @@ export default function App() {
     if (run) void chair(demo.messages, id);
   }
 
-  async function chair(msgs = messages, preferred = activeDemo) {
+  async function chair(
+    msgs = messages,
+    preferred = activeDemo,
+    forceLive = false,
+  ) {
     if (busy || msgs.length === 0) return;
     setBusy(true);
+    setLivePass(forceLive || !preferred);
     setScanning(true);
     setBrief(null);
+    setError(null);
+    setSource(null);
     setFocusId(null);
     try {
-      const result = await analyzeThread(msgs, preferred);
+      const result = await analyzeThread(msgs, preferred, { forceLive });
       setEvidence(result.evidenceIds);
       setScanning(false);
       setBrief(result.brief);
       setSource(result.source);
+      setError(result.error ?? null);
     } finally {
       setBusy(false);
       setScanning(false);
@@ -110,9 +122,12 @@ export default function App() {
     setActiveDemo(known?.id ?? null);
     setBrief(null);
     setSource(null);
+    setError(null);
     setEvidence([]);
     setPasteOpen(false);
-    void chair(parsed, known?.id ?? null);
+    // Official sample text can still use the fast curated path;
+    // any other paste goes to the live model.
+    void chair(parsed, known?.id ?? null, !known);
   }
 
   const title = scenario
@@ -143,14 +158,25 @@ export default function App() {
           <button type="button" className="btn" onClick={() => setPasteOpen(true)}>
             {c.paste}
           </button>
+          {activeDemo ? (
+            <button
+              type="button"
+              className="btn"
+              onClick={() => void chair(messages, activeDemo, true)}
+              disabled={busy}
+              data-testid="chair-live-btn"
+            >
+              {busy && livePass ? c.chairingLive : c.chairLive}
+            </button>
+          ) : null}
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => void chair()}
+            onClick={() => void chair(messages, activeDemo, !activeDemo)}
             disabled={busy}
             data-testid="chair-btn"
           >
-            {busy ? c.chairing : c.chairThis}
+            {busy ? (livePass || !activeDemo ? c.chairingLive : c.chairing) : c.chairThis}
           </button>
         </div>
       </header>
@@ -220,7 +246,21 @@ export default function App() {
         <section className="panel brief-panel">
           <div className="paper-rule" />
           <div className="brief-scroll">
-            {!brief ? (
+            {source === "error" ? (
+              <div className="empty" data-testid="live-error">
+                <div className="chop-ghost">決</div>
+                <h3>{c.liveErrorTitle}</h3>
+                <p>{error || c.liveErrorHint}</p>
+                <p className="note">{c.liveErrorHint}</p>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => void chair(messages, activeDemo, true)}
+                >
+                  {c.retryLive}
+                </button>
+              </div>
+            ) : !brief ? (
               <div className="empty">
                 <div className="chop-ghost">決</div>
                 <h3>{c.briefEmpty}</h3>
@@ -240,6 +280,7 @@ export default function App() {
                 onReset={() => {
                   setBrief(null);
                   setSource(null);
+                  setError(null);
                   setEvidence([]);
                   setFocusId(null);
                 }}
@@ -298,7 +339,7 @@ function BriefView({
   brief: Brief;
   messages: ThreadMessage[];
   locale: Locale;
-  source: "demo" | "outline" | "live" | null;
+  source: "demo" | "live" | null;
   replyLang: ReplyLang;
   setReplyLang: (l: ReplyLang) => void;
   copied: "reply" | "brief" | null;
@@ -431,7 +472,8 @@ function BriefView({
         </div>
       </section>
 
-      {source === "outline" ? <p className="note">{c.offlineNote}</p> : null}
+      {source === "live" ? <p className="note">{c.liveBadge}</p> : null}
+      {source === "demo" ? <p className="note">{c.demoBadge}</p> : null}
     </div>
   );
 }

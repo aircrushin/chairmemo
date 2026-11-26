@@ -34,7 +34,7 @@ Open the demo, pick a sample, press **Chair this thread**. Evidence in the brief
 - Drafts a suggested reply in English, Traditional Chinese, Simplified Chinese and written Cantonese.
 - Copies the brief as Markdown.
 
-The official samples use curated, evidence-linked briefs so a judge’s first run is reliable in under a minute. Paste a thread of your own on the hosted demo and Chairmemo still extracts an outline (speakers, questions, agreement-like lines). For a full live brief on unseen threads, run it locally with an LLM key (OpenRouter-compatible).
+The official samples use curated, evidence-linked briefs so a first run is reliable in under a minute. You can also press **Chair with live model** on a sample. A pasted, non-sample thread is sent to a server-side Cloudflare Worker (`https://chairmemo-brief.1216564567.workers.dev`) which calls the model and returns an evidence-linked brief. The API key is stored only as a Worker secret, never in this repository or the GitHub Pages bundle. If the live service is unavailable, the app reports the failure honestly and does not invent a stand-in brief.
 
 ## How it uses AI
 
@@ -63,15 +63,9 @@ npm test
 npm run dev
 ```
 
-Then open the printed local URL. To generate live briefs for pasted threads:
+Then open the printed local URL. The production site talks to the Cloudflare Worker; local `npm run dev` uses that same public proxy for pasted threads. A separate local brief server (`npm run dev:ai`) is optional for development and still reads `LLM_API_KEY` from the environment.
 
-```bash
-export LLM_API_KEY=sk-or-...   # OpenRouter or a compatible key
-# optional: export LLM_MODEL=openai/gpt-4o-mini
-npm run dev:ai
-```
-
-Do not commit secrets. `.env` and `.env.local` are gitignored.
+Do not commit secrets. `.env`, `.env.local` and `worker/.dev.vars` are gitignored. The production key is a Cloudflare Worker secret named `LLM_API_KEY`.
 
 ## Tests
 
