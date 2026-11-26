@@ -1,0 +1,32 @@
+{
+  "name": "chairmemo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Chairmemo turns messy WhatsApp, WeChat and email threads into a bilingual decision brief.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
+    "test": "vitest run",
+    "smoke": "npm run build && node scripts/smoke.mjs",
+    "dev:ai": "node server/brief.mjs",
+    "brief": "node server/brief.mjs"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
+    "jsdom": "^27.1.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4",
+    "vitest": "^4.0.8"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

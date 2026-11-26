@@ -1,0 +1,50 @@
+:root {
+  --ink: #14110f;
+  --ink-soft: #3f3832;
+  --ink-faint: #7a7168;
+  --paper: #f4efe6;
+  --paper-2: #ebe3d4;
+  --paper-3: #faf7f1;
+  --rule: rgba(20, 17, 15, 0.12);
+  --rule-strong: rgba(20, 17, 15, 0.22);
+  --chop: #c43b2c;
+  --chop-soft: rgba(196, 59, 44, 0.12);
+  --gold: #9a7343;
+  --chat: #161310;
+  --chat-raised: #211c18;
+  --bubble: #2a241f;
+  --bubble-alt: #332923;
+  --bubble-hi: #3a2a22;
+  --foam: #efe6d4;
+  --ok: #2c6b4a;
+  --warn: #9a5b12;
+  --bad: #a33b2c;
+  --shadow: 0 24px 60px rgba(20, 17, 15, 0.18);
+  --serif: "Fraunces", "Noto Serif TC", "Songti TC", serif;
+  --sans: "Source Sans 3", "Noto Sans TC", "Noto Sans SC", "PingFang TC", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0;
+  min-height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+}
+
+body {
+  background-image:
+    radial-gradient(ellipse at top, rgba(196, 59, 44, 0.06), transparent 42%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+button, textarea, input { font-family: inherit; }
+
+button { cursor: pointer; }
+
+::selection {
+  background: rgba(196, 59, 44, 0.22);
+}
