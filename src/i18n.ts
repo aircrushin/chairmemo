@@ -20,7 +20,7 @@ export const copy = {
     demoReady: "Guest demo — no sign-in",
     briefEmpty: "The brief will land here.",
     briefEmptyHint:
-      "Pick a sample on the left, or paste a thread, then press Chair this thread. Typical first run is under a minute.",
+      "Pick a sample above, or paste a thread, then press Chair this thread. Typical first run is under a minute.",
     decisions: "Decisions",
     openQuestions: "Open questions",
     owners: "Owners",
@@ -72,7 +72,7 @@ export const copy = {
     demoReady: "訪客演示，無需登入",
     briefEmpty: "紀要會出現在這裡。",
     briefEmptyHint:
-      "左側選擇示例，或貼上自己的對話，然後按下「整理這條對話」。第一次完整演示通常不到一分鐘。",
+      "上方選擇示例，或貼上自己的對話，然後按下「整理這條對話」。第一次完整演示通常不到一分鐘。",
     decisions: "已決議",
     openQuestions: "未決問題",
     owners: "負責人",

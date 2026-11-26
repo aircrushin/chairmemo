@@ -155,7 +155,7 @@ export default function App() {
         </div>
       </header>
 
-      <section className="hero">
+      <section className={`hero ${brief || busy ? "compact" : ""}`}>
         <div>
           <h1>{c.tagline}</h1>
           <p>{c.subhead}</p>
